@@ -1,0 +1,26 @@
+name: 🚀 Deploy DO App
+description: 'Deploys an application to Digital Ocean Apps Platform and sets up doctl for further commands.'
+inputs:
+  app_name:
+    description: 'Name of the application to deploy.'
+    required: true
+  token:
+    description: 'Digital Ocean API token.'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: 🚀 Deploy to Digital Ocean
+      uses: digitalocean/app_action@v1.1.5
+      with:
+        app_name: ${{ inputs.app_name }}
+        token: ${{ inputs.token }}
+
+    - name: Setup doctl
+      uses: digitalocean/action-doctl@v2
+      with:
+        token: ${{ inputs.token }}
