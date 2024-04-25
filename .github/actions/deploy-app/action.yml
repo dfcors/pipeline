@@ -21,7 +21,7 @@ runs:
     - name: SSH Setup
       uses: webfactory/ssh-agent@v0.9.0
       with:
-        ssh-private-key: ${{ secrets.GITHUB_TOKEN }}
+        ssh-private-key: ${{ github.token }}
 
     - name: Update GIT_TAG in environment
       shell: bash
