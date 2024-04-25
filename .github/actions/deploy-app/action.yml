@@ -20,6 +20,9 @@ runs:
   steps:
     - name: Checkout Repository
       uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+        fetch-depth: 0
 
     - name: Update GIT_TAG in environment
       shell: bash
@@ -32,16 +35,19 @@ runs:
           " "${{ inputs.env_file }}"
         fi
 
-    - name: Push changes to repository
+    - name: Commit Tag Version to Environment File
       shell: bash
       run: |
           git config --local user.email "actions@digitalforge.rs"
           git config --local user.name "Digital Forge"
           git add "${{ inputs.env_file }}"
-          git commit -m "action: release version ${{ github.ref_name }}" || echo "Nothing to commit"
-          git push origin HEAD:release --force
-      env:
-        GITHUB_TOKEN: ${{ inputs.pipeline_token }}
+          git commit -m "action: release version ${{ github.ref_name }}" || echo "Nothing to commit" 
+
+    - name: Push changes to repository
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: release
 
     - name: 🚀 Deploy to Digital Ocean
       uses: digitalocean/app_action@v1.1.6
