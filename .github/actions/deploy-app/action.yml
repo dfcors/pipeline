@@ -39,7 +39,6 @@ runs:
           git config --local user.name "Digital Forge"
           git add "${{ inputs.env_file }}"
           git commit -m "action: release version ${{ github.ref_name }}" || echo "Nothing to commit"
-          git remote set-url origin https://x-access-token:${{ inputs.pipeline_token }}@github.com/${{ github.repository }}
           git push origin HEAD:release --force
       env:
         GITHUB_TOKEN: ${{ inputs.pipeline_token }}
