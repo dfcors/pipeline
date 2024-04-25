@@ -21,8 +21,8 @@ runs:
     - name: Checkout Repository
       uses: actions/checkout@v4
       with:
-        ssh-key: ${{ inputs.pat_pipeline_token }}
-        persist-credentials: true
+        fetch-depth: 0
+        token: ${{ inputs.pat_pipeline_token }}
 
     - name: Update GIT_TAG in environment
       shell: bash
@@ -46,7 +46,7 @@ runs:
     - name: Push changes to repository
       uses: ad-m/github-push-action@master
       with:
-        ssh: true
+        github_token: '${{ inputs.pat_pipeline_token }}'
         branch: release
         force: true
 
