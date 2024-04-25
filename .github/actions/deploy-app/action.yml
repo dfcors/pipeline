@@ -18,6 +18,11 @@ runs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
+    - name: SSH Setup
+      uses: webfactory/ssh-agent@v0.9.0
+      with:
+        ssh-private-key: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Update GIT_TAG in environment
       shell: bash
       run: |
@@ -36,7 +41,7 @@ runs:
           git config --local user.name "Digital Forge"
           git add "${{ inputs.env_file }}"
           git commit -m "action: release version ${{ github.ref_name }}" || echo "Nothing to commit"
-          git push origin HEAD:release --force
+          git push ${{ github.repositoryUrl }} HEAD:release --force
 
     - name: 🚀 Deploy to Digital Ocean
       uses: digitalocean/app_action@v1.1.6
