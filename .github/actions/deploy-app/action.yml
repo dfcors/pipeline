@@ -22,9 +22,9 @@ runs:
       shell: bash
       run: |
         if grep -q "^GIT_TAG=" "${{ inputs.env_file }}"; then
-          sed -i "s/^GIT_TAG=.*/GIT_TAG=${{ github.ref }}/" "${{ inputs.env_file }}"
+          sed -i "s/^GIT_TAG=.*/GIT_TAG=${{ github.ref_name }}/" "${{ inputs.env_file }}"
         else
-          echo "GIT_TAG=${{ github.ref }}" >> "${{ inputs.env_file }}"
+          echo "GIT_TAG=${{ github.ref_name }}" >> "${{ inputs.env_file }}"
         fi
 
     - name: 🚀 Deploy to Digital Ocean
