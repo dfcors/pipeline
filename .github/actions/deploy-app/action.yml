@@ -36,7 +36,6 @@ runs:
           git config --local user.name "DF GitHub Actions"
           git add "${{ inputs.env_file }}"
           git commit -m "action: release version ${{ github.ref_name }}" || echo "Nothing to commit"
-#         XXX: This is a workaround for DigitalOcean Apps because it does not pull from the tag but from the branch that is already predefined
           git push origin HEAD:release --force
 
     - name: 🚀 Deploy to Digital Ocean
