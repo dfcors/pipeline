@@ -7,12 +7,25 @@ inputs:
   token:
     description: 'Digital Ocean API token.'
     required: true
+  env_file:
+    description: 'Path to the environment file to update.'
+    required: true
+    default: '.env.production'
 
 runs:
   using: 'composite'
   steps:
     - name: Checkout Repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
+
+    - name: Update GIT_TAG in environment
+      shell: bash
+      run: |
+        if grep -q "^GIT_TAG=" "${{ inputs.env_file }}"; then
+          sed -i "s/^GIT_TAG=.*/GIT_TAG=${{ github.ref }}/" "${{ inputs.env_file }}"
+        else
+          echo "GIT_TAG=${{ github.ref }}" >> "${{ inputs.env_file }}"
+        fi
 
     - name: 🚀 Deploy to Digital Ocean
       uses: digitalocean/app_action@v1.1.5
