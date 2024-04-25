@@ -11,6 +11,9 @@ inputs:
     description: 'Path to the environment file to update.'
     required: true
     default: '.env.production'
+  pipeline_token:
+    description: 'Pipeline Token to use'
+    required: true
 
 runs:
   using: 'composite'
@@ -21,7 +24,7 @@ runs:
     - name: SSH Setup
       uses: webfactory/ssh-agent@v0.9.0
       with:
-        ssh-private-key: ${{ github.token }}
+        ssh-private-key: ${{ inputs.pipeline_token }}
 
     - name: Update GIT_TAG in environment
       shell: bash
