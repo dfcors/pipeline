@@ -41,6 +41,8 @@ runs:
           git commit -m "action: release version ${{ github.ref_name }}" || echo "Nothing to commit"
           git remote set-url origin https://x-access-token:${{ inputs.pipeline_token }}@github.com/${{ github.repository }}
           git push origin HEAD:release --force
+      env:
+        GITHUB_TOKEN: ${{ inputs.pipeline_token }}
 
     - name: 🚀 Deploy to Digital Ocean
       uses: digitalocean/app_action@v1.1.6
