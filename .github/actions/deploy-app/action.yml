@@ -4,14 +4,14 @@ inputs:
   app_name:
     description: 'Name of the application to deploy.'
     required: true
-  token:
+  do_token:
     description: 'Digital Ocean API token.'
     required: true
   env_file:
     description: 'Path to the environment file to update.'
     required: true
     default: '.env.production'
-  pat_pipeline:
+  pat_pipeline_token:
     description: 'PAT for the pipeline.'
     required: true
 
@@ -21,7 +21,7 @@ runs:
     - name: Checkout Repository
       uses: actions/checkout@v4
       with:
-        ssh-key: ${{ inputs.pat_pipeline }}
+        ssh-key: ${{ inputs.pat_pipeline_token }}
         persist-credentials: true
 
     - name: Update GIT_TAG in environment
@@ -54,9 +54,9 @@ runs:
       uses: digitalocean/app_action@v1.1.6
       with:
         app_name: ${{ inputs.app_name }}
-        token: ${{ inputs.token }}
+        token: ${{ inputs.do_token }}
 
     - name: Setup doctl
       uses: digitalocean/action-doctl@v2
       with:
-        token: ${{ inputs.token }}
+        token: ${{ inputs.do_token }}
