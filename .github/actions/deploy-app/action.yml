@@ -11,8 +11,8 @@ inputs:
     description: 'Path to the environment file to update.'
     required: true
     default: '.env.production'
-  pipeline_token:
-    description: 'Pipeline Token to use'
+  pat_pipeline:
+    description: 'PAT for the pipeline.'
     required: true
 
 runs:
@@ -21,7 +21,7 @@ runs:
     - name: Checkout Repository
       uses: actions/checkout@v4
       with:
-        ssh-key: ${{ inputs.pipeline_token }}
+        ssh-key: ${{ inputs.pat_pipeline }}
         persist-credentials: true
 
     - name: Update GIT_TAG in environment
