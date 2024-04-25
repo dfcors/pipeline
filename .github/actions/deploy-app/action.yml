@@ -48,6 +48,8 @@ runs:
       with:
         github_token: ${{ inputs.pipeline_token }}
         branch: release
+        repository: ${{ github.repository }}
+        force: true
 
     - name: 🚀 Deploy to Digital Ocean
       uses: digitalocean/app_action@v1.1.6
