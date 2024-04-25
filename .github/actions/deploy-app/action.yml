@@ -21,8 +21,8 @@ runs:
     - name: Checkout Repository
       uses: actions/checkout@v4
       with:
-        persist-credentials: false
-        fetch-depth: 0
+        ssh-key: ${{ inputs.pipeline_token }}
+        persist-credentials: true
 
     - name: Update GIT_TAG in environment
       shell: bash
@@ -46,9 +46,8 @@ runs:
     - name: Push changes to repository
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ inputs.pipeline_token }}
+        ssh: true
         branch: release
-        repository: ${{ github.repository }}
         force: true
 
     - name: 🚀 Deploy to Digital Ocean
