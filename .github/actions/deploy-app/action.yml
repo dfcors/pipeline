@@ -28,7 +28,7 @@ runs:
         fi
 
     - name: 🚀 Deploy to Digital Ocean
-      uses: digitalocean/app_action@v1.1.5
+      uses: digitalocean/app_action@v1.1.6
       with:
         app_name: ${{ inputs.app_name }}
         token: ${{ inputs.token }}
