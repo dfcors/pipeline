@@ -51,7 +51,7 @@ runs:
         force: true
 
     - name: 🚀 Deploy to Digital Ocean
-      uses: digitalocean/app_action@v1.1.6
+      uses: digitalocean/app_action@v1.1.7
       with:
         app_name: ${{ inputs.app_name }}
         token: ${{ inputs.do_token }}
