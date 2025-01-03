@@ -9,7 +9,7 @@ inputs:
     required: true
   env_file:
     description: 'Path to the environment file to update.'
-    required: true
+    required: false
     default: '.env.production'
   pat_pipeline_token:
     description: 'PAT for the pipeline.'
