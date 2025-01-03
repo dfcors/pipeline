@@ -1,3 +1,3 @@
 # Digital Forge Pipeline / Workflow Files
 
-Common pipeline / workflow files for projects usually hosted on DigitalOcean and run with GitHub Workflows.
+Common pipeline / workflow files for DF projects and run with GitHub Workflows.
